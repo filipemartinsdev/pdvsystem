@@ -8,12 +8,12 @@ public class ProductRepositoryImpl implements ProductRepository{
     private static final String DB_PASSWORD = "020407";
 
     @Override
-    public Product getProductById(int id) {
+    public Product getProductById(long id) {
         String sql = "SELECT id, name, CAST(price AS NUMERIC), unity FROM products WHERE id = ?";
         try {
             Connection dbConnection = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
             PreparedStatement statement = dbConnection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
             if(result.next()){

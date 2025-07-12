@@ -20,16 +20,15 @@ public class MaxLengthPrinter {
     }
 
     public String get(String text){
-        if(text.length()<=this.maxLength){
-            return text;
-        }
-        char[]textAsCharArr = text.toCharArray();
+        char[]textAsCharArr;
         char[]outAsCharArr;
 
         if(text.length()>=this.maxLength){
+            textAsCharArr = text.toCharArray();
             outAsCharArr = new char[text.length()-(text.length()-this.maxLength)-3];
         } else {
-            outAsCharArr = new char[text.length()-(this.maxLength-text.length())-3];
+            return text;
+//            outAsCharArr = new char[text.length()-(this.maxLength-text.length())-3];
         }
 
         int currentSize = 0;

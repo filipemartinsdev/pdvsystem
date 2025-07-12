@@ -2,7 +2,7 @@ package src.com.pdvsystem;
 
 import java.util.Scanner;
 
-public class App {
+public final class App {
     private static boolean isOn;
     private static final Scanner scan = new Scanner(System.in);
 
@@ -33,12 +33,12 @@ public class App {
     }
 
     public static void init(){
-        int input;
+        long input;
 
         while(isOn) {
             currentSession.printShopList();
             System.out.print(">> ");
-            input = scan.nextInt();
+            input = scan.nextLong();
             scan.nextLine();
 
             inputHandler(input);
@@ -48,7 +48,7 @@ public class App {
         System.out.println("> [GLOBAL] Session closed.");
     }
 
-    private static void inputHandler(int input){
+    private static void inputHandler(long input){
         if(input == 0){
             isOn = false;
             return;
