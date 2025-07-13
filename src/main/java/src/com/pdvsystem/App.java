@@ -3,57 +3,67 @@ package src.com.pdvsystem;
 import java.util.Scanner;
 
 public final class App {
-    private static boolean isOn;
-    private static final Scanner scan = new Scanner(System.in);
+    private static boolean isAppOn = true;
+    private static boolean isSessionOn = false;
+
+    public static Scanner scan = new Scanner(System.in);
 
     private static Session currentSession;
 
-    static {
-        ProductRepository productRepository = new ProductRepositoryImpl();
-
-        isOn = false;
-
-        int in;
-        System.out.println("--- PDV ---");
-
-        while(!isOn){
-            System.out.print(">>> ");
-            in = scan.nextInt();
-            scan.nextLine();
-
-            Product product = productRepository.getProductById(in);
-            if (product == null) {
-                System.out.println("Item not exists");
-                continue;
-            }
-            currentSession = new Session(product);
-
-            isOn = true;
-        }
+    public static void closeSession(){
+        App.isSessionOn = false;
+        App.currentSession = null;
     }
 
     public static void init(){
-        long input;
+        String input;
 
-        while(isOn) {
-            currentSession.printShopList();
+        Product product;
+        while(App.isAppOn) {
+            while(!App.isSessionOn && App.isAppOn) {
+                System.out.println("--- PDV ---");
+                System.out.print(">>> ");
+                input = App.scan.nextLine();
+
+                if (!InputHandler.strIsLong(input)) {
+                    InputHandler.homeManager(input);
+                    continue;
+                }
+
+                ProductRepository productRepository = new ProductRepositoryImpl();
+                product = productRepository.getProductById(Long.parseLong(input));
+
+                if (product == null) {
+                    System.out.println("[ERROR] Item not exists");
+                    continue;
+                }
+
+                App.currentSession = new Session(product);
+                App.isSessionOn = true;
+            }
+
+            if (!App.isSessionOn) return;
+
+            App.currentSession.printShopList();
             System.out.print(">> ");
-            input = scan.nextLong();
-            scan.nextLine();
+            input = App.scan.nextLine();
 
-            inputHandler(input);
+            InputHandler.manager(input, currentSession);
             System.out.println();
         }
+    }
 
+    public static void closeApp(){
+        App.isAppOn = false;
+        scan.close();
         System.out.println("> [GLOBAL] Session closed.");
     }
 
-    private static void inputHandler(long input){
-        if(input == 0){
-            isOn = false;
-            return;
-        }
+    public static boolean isAppOn() {
+        return App.isAppOn;
+    }
 
-        currentSession.addItem(input);
+    public static boolean isSessionOn() {
+        return isSessionOn;
     }
 }

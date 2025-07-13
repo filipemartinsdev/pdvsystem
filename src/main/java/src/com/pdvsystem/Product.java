@@ -5,6 +5,7 @@ public class Product {
     private final long id;
     private final float price;
     private final String unity;
+    private int sortId;
 
     private float unitiesInOrder;
 
@@ -43,5 +44,9 @@ public class Product {
 
     public String getUnity() {
         return unity;
+    }
+
+    public void setSortId(int id){
+        this.sortId = id;
     }
 }
