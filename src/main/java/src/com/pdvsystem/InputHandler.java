@@ -1,7 +1,5 @@
 package src.com.pdvsystem;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -44,11 +42,15 @@ public final class InputHandler {
         }
 
         if (input.equals("f")){
-            session.finish();
-            App.closeSession();
+            if(session.finish()){
+                App.closeSession();
+            };
         }
         else if(input.equals("c")){
             session.cancelItem();
+        }
+        else if(input.equals("m")){
+            PriceChecker.init();
         }
         else {
             System.out.println("[ERROR] Invalid function.");
@@ -56,6 +58,17 @@ public final class InputHandler {
     }
 
     public static void manager(String input, Session session){
+        if (input.isBlank()){
+            Product lastProduct = session.getLastProduct();
+
+            if (lastProduct.getUnity().equals("kg")){
+                return;
+            }
+
+            session.addItem(lastProduct.getId());
+            return;
+        }
+
         if(strIsLong(input)){
             session.addItem(Long.parseLong(input));
             return;
@@ -70,6 +83,10 @@ public final class InputHandler {
     public static void homeManager(String input){
         if(input.equals("f")){
             App.closeApp();
+            return;
+        }
+        else if(input.equals("m")){
+            PriceChecker.init();
             return;
         }
 
