@@ -5,7 +5,7 @@ import java.sql.*;
 public class ProductRepositoryImpl implements ProductRepository{
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/pdv";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "020407";
+    private static final String DB_PASSWORD = "";
 
     @Override
     public Product getProductById(long id) {
