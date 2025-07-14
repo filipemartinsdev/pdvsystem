@@ -29,7 +29,7 @@ public class Payment {
                 "   [1] Debito\n"+
                 "   [2] Credito\n"+
                 "   [3] Pix\n"+
-                "   [4] Credito manul\n"+
+                "   [4] Credito manual\n"+
                 "   [5] Boleto\n"+
                 "   [6] Vale troca\n"
         );
