@@ -1,5 +1,7 @@
 package src.com.pdvsystem;
 
+import src.com.util.MaxLengthPrinter;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +10,8 @@ import java.util.Map;
 public class Session {
     private final Map<Long, Product> shopMap;
     private final List<Long> shopList;
+
+    private Product lastProduct;
 
     private float subtotal;
 
@@ -21,6 +25,8 @@ public class Session {
 
         this.shopMap = new HashMap<>();
         this.shopMap.put(firstProduct.getId(), firstProduct);
+
+        this.lastProduct = firstProduct;
     }
 
     public void printShopList(){
@@ -63,11 +69,28 @@ public class Session {
             idCount++;
         }
 
+//        PRINT LAST ITEM
         System.out.print('+');
         for(int i = 0; i<89; i++){
             System.out.print('-');
         }
         System.out.print("+\n");
+
+
+        System.out.printf(
+                this.lastProduct.getUnity().equals("kg")?
+                    "| %-20s R$%-10.2f %5.3f %-3s |\n":
+                    "| %-20s R$%-10.2f %5.0f %-3s |\n",
+                maxPrinter.get(this.lastProduct.getName()),
+                this.lastProduct.getPrice(),
+                this.lastProduct.getUnitiesInOrder(),
+                this.lastProduct.getUnity()
+        );
+        System.out.println("+---------------------------------------------+");
+
+
+//        PRINT SUBTOTAL
+
 
         System.out.printf("| SUBTOTAL = R$%-10.2f |\n", this.subtotal);
         System.out.println("+-------------------------+");
@@ -81,10 +104,12 @@ public class Session {
             if(this.shopMap.containsKey(itemId)){
                 product.setSortId(this.shopList.size()+1);
                 this.shopMap.get(itemId).incrementUnitiesInOrder();
+                this.lastProduct = product;
             }
             else {
                 shopMap.put(itemId, product);
                 this.shopList.add(itemId);
+                this.lastProduct = product;
             }
 
             updateSubtotal();
@@ -108,6 +133,10 @@ public class Session {
         return isOpen;
     }
 
+    public Product getLastProduct(){
+        return this.lastProduct;
+    }
+
 //    USER FUNCTION
     public void cancelItem(){
         if (this.shopList.size() == 1){
@@ -126,7 +155,7 @@ public class Session {
         System.out.println("[ERROR] Item not canceled.");
     }
 
-    public void finish(){
+    public boolean finish(){
         System.out.println();
 
         Payment.printOptions();
@@ -135,7 +164,7 @@ public class Session {
 
         if(!InputHandler.strIsLong(input)){
             System.out.println("[ERROR] Invalid option");
-            return;
+            return false;
         }
 
         Payment.manager(Integer.parseInt(input));
@@ -143,6 +172,7 @@ public class Session {
         this.isOpen = false;
         App.closeSession();
         System.out.println("[GLOBAL] Session finished.");
+        return true;
     }
 
     public void updateSubtotal(){
