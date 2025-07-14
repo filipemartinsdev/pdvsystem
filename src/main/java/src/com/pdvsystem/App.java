@@ -44,6 +44,7 @@ public final class App {
 
             if (!App.isSessionOn) return;
 
+            App.currentSession.updateSubtotal();
             App.currentSession.printShopList();
             System.out.print(">> ");
             input = App.scan.nextLine();

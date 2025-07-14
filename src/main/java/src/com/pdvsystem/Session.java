@@ -9,6 +9,8 @@ public class Session {
     private final Map<Long, Product> shopMap;
     private final List<Long> shopList;
 
+    private float subtotal;
+
     private boolean isOpen;
 
     public Session(Product firstProduct){
@@ -66,6 +68,9 @@ public class Session {
             System.out.print('-');
         }
         System.out.print("+\n");
+
+        System.out.printf("| SUBTOTAL = R$%-10.2f |\n", this.subtotal);
+        System.out.println("+-------------------------+");
     }
 
     public void addItem(long itemId){
@@ -82,6 +87,7 @@ public class Session {
                 this.shopList.add(itemId);
             }
 
+            updateSubtotal();
             return;
         }
         System.out.println("[ERROR] Item not exists.");
@@ -91,32 +97,58 @@ public class Session {
         if (this.shopMap.containsKey(itemId)) {
             this.shopMap.remove(itemId);
             this.shopList.remove(itemId);
+            updateSubtotal();
             return true;
         }
+        updateSubtotal();
         return false;
     }
 
-//    USER FUNCTIONS
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+//    USER FUNCTION
     public void cancelItem(){
+        if (this.shopList.size() == 1){
+            System.out.println("[ERROR] Can't set empty list.");
+            return;
+        }
+
         System.out.print(">> Item #");
         int id = App.scan.nextInt();
 
         if (removeItem(shopList.get(id-1) ) ){
             System.out.println("Item #"+id+" has canceled.");
+            this.updateSubtotal();
             return;
         }
         System.out.println("[ERROR] Item not canceled.");
     }
 
     public void finish(){
+        System.out.println();
+
+        Payment.printOptions();
+        System.out.print(" >> ");
+        String input = App.scan.nextLine();
+
+        if(!InputHandler.strIsLong(input)){
+            System.out.println("[ERROR] Invalid option");
+            return;
+        }
+
+        Payment.manager(Integer.parseInt(input));
+
         this.isOpen = false;
         App.closeSession();
         System.out.println("[GLOBAL] Session finished.");
     }
 
-//    GETTERS
-
-    public boolean isOpen() {
-        return isOpen;
+    public void updateSubtotal(){
+        this.subtotal = 0;
+        for(Long productId : this.shopList){
+            subtotal+=this.shopMap.get(productId).getPrice() * this.shopMap.get(productId).getUnitiesInOrder();
+        }
     }
 }

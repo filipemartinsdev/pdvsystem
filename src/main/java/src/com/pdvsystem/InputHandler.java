@@ -58,10 +58,13 @@ public final class InputHandler {
     public static void manager(String input, Session session){
         if(strIsLong(input)){
             session.addItem(Long.parseLong(input));
+            return;
         }
         else if(strHasOnlyText(input)){
             functionInputHandler(input, session);
+            return;
         }
+        System.out.println("[ERROR] Invalid input");
     }
 
     public static void homeManager(String input){
