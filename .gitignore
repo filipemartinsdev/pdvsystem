@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+*.class
+src/main/java/src/com/pdvsystem/*.class
+src/main/java/src/com/util/*.class
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
