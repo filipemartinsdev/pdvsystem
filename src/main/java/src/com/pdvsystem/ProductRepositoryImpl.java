@@ -3,9 +3,9 @@ package src.com.pdvsystem;
 import java.sql.*;
 
 public class ProductRepositoryImpl implements ProductRepository{
-    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/pdv";
+    private static final String JDBC_URL = "jdbc:postgresql://127.0.0.1:5432/pdv";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_PASSWORD = ""; // FIXME: REMOVE THIS SHIT MAN
 
     @Override
     public Product getProductById(long id) {
