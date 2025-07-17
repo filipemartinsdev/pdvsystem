@@ -1,8 +1,11 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.cashier;
+
+import src.com.pdvsystem.db.*;
+import src.com.pdvsystem.io.InputHandler;
 
 import java.util.Scanner;
 
-public final class App {
+public final class FrontEndCashier {
     private static boolean isAppOn = true;
     private static boolean isSessionOn = false;
 
@@ -10,20 +13,22 @@ public final class App {
 
     private static Session currentSession;
 
-    public static void closeSession(){
-        App.isSessionOn = false;
-        App.currentSession = null;
-    }
+    public static void init(User user){
+        UserRepository userRepository = new UserRepositoryImpl();
 
-    public static void init(){
+        if (userRepository.isUserOn(user.getId())){
+            System.out.println("[ERROR] O usuário "+user.getName()+" está sendo utilizado.");
+            return;
+        }
+
         String input;
-
         Product product;
-        while(App.isAppOn) {
-            while(!App.isSessionOn && App.isAppOn) {
+
+        while(FrontEndCashier.isAppOn) {
+            while(!FrontEndCashier.isSessionOn && FrontEndCashier.isAppOn) {
                 System.out.println("--- PDV ---");
                 System.out.print(">>> ");
-                input = App.scan.nextLine();
+                input = FrontEndCashier.scan.nextLine();
 
                 if (!InputHandler.strIsLong(input)) {
                     InputHandler.homeManager(input);
@@ -38,30 +43,35 @@ public final class App {
                     continue;
                 }
 
-                App.currentSession = new Session(product);
-                App.isSessionOn = true;
+                FrontEndCashier.currentSession = new Session(product);
+                FrontEndCashier.isSessionOn = true;
             }
 
-            if (!App.isSessionOn) return;
+            if (!FrontEndCashier.isSessionOn) return;
 
-            App.currentSession.updateSubtotal();
-            App.currentSession.printShopList();
+            FrontEndCashier.currentSession.updateSubtotal();
+            FrontEndCashier.currentSession.printShopList();
             System.out.print(">> ");
-            input = App.scan.nextLine();
+            input = FrontEndCashier.scan.nextLine();
 
             InputHandler.manager(input, currentSession);
             System.out.println();
         }
     }
 
+    public static void closeSession(){
+        FrontEndCashier.isSessionOn = false;
+        FrontEndCashier.currentSession = null;
+    }
+
     public static void closeApp(){
-        App.isAppOn = false;
+        FrontEndCashier.isAppOn = false;
         scan.close();
         System.out.println("> [GLOBAL] Session closed.");
     }
 
     public static boolean isAppOn() {
-        return App.isAppOn;
+        return FrontEndCashier.isAppOn;
     }
 
     public static boolean isSessionOn() {

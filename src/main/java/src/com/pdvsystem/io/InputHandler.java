@@ -1,4 +1,9 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.io;
+
+import src.com.pdvsystem.cashier.PriceChecker;
+import src.com.pdvsystem.db.Product;
+import src.com.pdvsystem.cashier.Session;
+import src.com.pdvsystem.cashier.FrontEndCashier;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -43,7 +48,7 @@ public final class InputHandler {
 
         if (input.equals("f")){
             if(session.finish()){
-                App.closeSession();
+                FrontEndCashier.closeSession();
             };
         }
         else if(input.equals("c")){
@@ -82,7 +87,7 @@ public final class InputHandler {
 
     public static void homeManager(String input){
         if(input.equals("f")){
-            App.closeApp();
+            FrontEndCashier.closeApp();
             return;
         }
         else if(input.equals("m")){

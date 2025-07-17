@@ -1,4 +1,4 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.db;
 
 public class Product {
     private final String name;

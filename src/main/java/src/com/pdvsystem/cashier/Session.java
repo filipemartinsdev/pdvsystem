@@ -1,6 +1,10 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.cashier;
 
-import src.com.util.MaxLengthPrinter;
+import src.com.pdvsystem.db.Product;
+import src.com.pdvsystem.db.ProductRepository;
+import src.com.pdvsystem.db.ProductRepositoryImpl;
+import src.com.pdvsystem.io.InputHandler;
+import src.com.pdvsystem.io.MaxLengthPrinter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -145,7 +149,7 @@ public class Session {
         }
 
         System.out.print(">> Item #");
-        int id = App.scan.nextInt();
+        int id = FrontEndCashier.scan.nextInt();
 
         if (removeItem(shopList.get(id-1) ) ){
             System.out.println("Item #"+id+" has canceled.");
@@ -160,7 +164,7 @@ public class Session {
 
         Payment.printOptions();
         System.out.print(" >> ");
-        String input = App.scan.nextLine();
+        String input = FrontEndCashier.scan.nextLine();
 
         if(!InputHandler.strIsLong(input)){
             System.out.println("[ERROR] Invalid option");
@@ -170,7 +174,7 @@ public class Session {
         Payment.manager(Integer.parseInt(input));
 
         this.isOpen = false;
-        App.closeSession();
+        FrontEndCashier.closeSession();
         System.out.println("[GLOBAL] Session finished.");
         return true;
     }

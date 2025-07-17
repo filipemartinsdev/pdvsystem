@@ -1,4 +1,4 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.cashier;
 
 public class Payment {
     public static void manager(int inputOption){
@@ -20,7 +20,7 @@ public class Payment {
     public static void mock(){
         System.out.println("Simulando pagamento...");
         System.out.println("Tecle enter");
-        App.scan.nextLine();
+        FrontEndCashier.scan.nextLine();
     }
 
     public static void printOptions(){

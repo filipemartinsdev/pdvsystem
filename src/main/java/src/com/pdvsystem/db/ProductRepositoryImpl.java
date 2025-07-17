@@ -1,17 +1,17 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.db;
 
 import java.sql.*;
+import src.com.pdvsystem.db.DatabaseInfo;
 
 public class ProductRepositoryImpl implements ProductRepository{
-    private static final String JDBC_URL = "jdbc:postgresql://127.0.0.1:5432/pdv";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = ""; // FIXME: REMOVE THIS
+
 
     @Override
     public Product getProductById(long id) {
         String sql = "SELECT id, name, CAST(price AS NUMERIC), unity FROM products WHERE id = ?";
         try {
-            Connection dbConnection = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+            Connection dbConnection = DriverManager.getConnection(DatabaseInfo.getDbUrl(), DatabaseInfo.getDbUser(), DatabaseInfo.getDbPassword());
+
             PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();

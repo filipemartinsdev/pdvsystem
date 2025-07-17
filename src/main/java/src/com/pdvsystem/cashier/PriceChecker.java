@@ -1,4 +1,9 @@
-package src.com.pdvsystem;
+package src.com.pdvsystem.cashier;
+
+import src.com.pdvsystem.db.Product;
+import src.com.pdvsystem.db.ProductRepository;
+import src.com.pdvsystem.db.ProductRepositoryImpl;
+import src.com.pdvsystem.io.InputHandler;
 
 public class PriceChecker {
     public static void init(){
@@ -9,7 +14,7 @@ public class PriceChecker {
         while(true){
             System.out.println();
             System.out.print(">>> ");
-            String input = App.scan.nextLine();
+            String input = FrontEndCashier.scan.nextLine();
 
             if(input.isBlank()){
                 return;

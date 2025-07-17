@@ -1,4 +1,4 @@
-package src.com.util;
+package src.com.pdvsystem.io;
 
 public class MaxLengthPrinter {
     private final int maxLength;
