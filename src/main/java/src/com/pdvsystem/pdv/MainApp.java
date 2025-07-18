@@ -5,13 +5,13 @@ import src.com.pdvsystem.db.UserRepository;
 import src.com.pdvsystem.db.UserRepositoryImpl;
 import src.com.pdvsystem.io.InputManager;
 
-public class App {
+public class MainApp {
     private static boolean isOn = true;
     private static User currentUser = null;
 
     public static void init(){
-        while(App.isOn){
-            System.out.println("------ PDV ------\n");
+        while(MainApp.isOn){
+            System.out.println("\n------ PDV ------");
             initLogin();
 
             LoggedApp.init(currentUser);
@@ -20,7 +20,7 @@ public class App {
 
     private static void initLogin(){
         while(true){
-            System.out.println(">>> LOGIN <<<");
+            System.out.println("\n>>> LOGIN <<<");
 
             String username = InputManager.readString(">> Usuario: ");
             String password = InputManager.readString(">> Senha: ");
@@ -28,13 +28,7 @@ public class App {
             UserRepository userRepository = new UserRepositoryImpl();
             User user = userRepository.getUserByName(username);
 
-            if(user==null){
-                System.out.println("[ERROR] Usuario inexistente.");
-            }
-            else if(!userRepository.authUser(user.getId(), password)){
-                System.out.println("[ERROR] Senha incorreta.");
-            }
-            else {
+            if (LoggedApp.tryLogin(username, password) ){
                 currentUser = user;
                 break;
             }
@@ -43,13 +37,13 @@ public class App {
 
     public static void exit(){
         InputManager.closeScanner();
-        App.isOn = false;
+        MainApp.isOn = false;
 
 
-//        Login.logoutUser(App.currentUser);
+//        Login.logoutUser(MainApp.currentUser);
     }
 
     public static boolean isOn(){
-        return App.isOn;
+        return MainApp.isOn;
     }
 }

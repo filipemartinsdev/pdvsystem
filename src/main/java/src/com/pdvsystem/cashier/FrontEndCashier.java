@@ -26,7 +26,7 @@ public final class FrontEndCashier {
 
         while(FrontEndCashier.isAppOn) {
             while(!FrontEndCashier.isSessionOn && FrontEndCashier.isAppOn) {
-                System.out.println("--- PDV ---");
+                System.out.println(">>>>>> CASHIER <<<<<<");
                 System.out.print(">>> ");
                 input = FrontEndCashier.scan.nextLine();
 
@@ -66,7 +66,6 @@ public final class FrontEndCashier {
 
     public static void closeApp(){
         FrontEndCashier.isAppOn = false;
-        scan.close();
         System.out.println("> [GLOBAL] Session closed.");
     }
 
