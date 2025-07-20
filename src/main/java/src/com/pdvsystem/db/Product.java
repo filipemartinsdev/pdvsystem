@@ -30,10 +30,6 @@ public class Product {
         return unitiesInOrder;
     }
 
-//    public void incrementUnitiesInOrder(int unities){
-//        this.unitiesInOrder+=unities;
-//    }
-
     public void incrementUnitiesInOrder(){
         this.unitiesInOrder++;
     }

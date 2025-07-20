@@ -98,7 +98,7 @@ public class Payment {
                 continue;
             }
             else {
-                enterValue += Integer.parseInt(input);
+                enterValue += Float.parseFloat(input);
             }
 
             if (enterValue<this.SALE_VALUE) {

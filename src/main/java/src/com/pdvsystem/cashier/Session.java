@@ -4,6 +4,7 @@ import src.com.pdvsystem.db.Product;
 import src.com.pdvsystem.db.ProductRepository;
 import src.com.pdvsystem.db.ProductRepositoryImpl;
 import src.com.pdvsystem.io.InputHandler;
+import src.com.pdvsystem.io.InputManager;
 import src.com.pdvsystem.io.MaxLengthPrinter;
 
 import java.util.List;
@@ -162,21 +163,28 @@ public class Session {
     public boolean finish(){
         System.out.println();
 
-        Payment.printOptions();
-        System.out.print(" >> ");
-        String input = FrontEndCashier.scan.nextLine();
+        Payment payment = new Payment(this.subtotal);
+        payment.init();
 
-        if(!InputHandler.strIsLong(input)){
-            System.out.println("[ERROR] Invalid option");
-            return false;
+        if (payment.isComplete()){
+            System.out.println("AGUARDE...");
+
+            ProductRepository productRepository = new ProductRepositoryImpl();
+
+//            for (long productId : this.shopList){
+//                productRepository.sell(productId, shopMap.get(productId).getUnitiesInOrder());
+//            }
+            List<Product> productList = new ArrayList<>();
+            for (Product product:this.shopMap.values()){
+                productList.add(product);
+            }
+            productRepository.sellAll(productList);
+
+            System.out.println(">> Sessão finalizada <<\n");
+
+            return true;
         }
-
-        Payment.manager(Integer.parseInt(input));
-
-        this.isOpen = false;
-        FrontEndCashier.closeSession();
-        System.out.println("[GLOBAL] Session finished.");
-        return true;
+        return false;
     }
 
     public void updateSubtotal(){
