@@ -1,6 +1,6 @@
 # 🛒 Sistema de PDV em linha de comando
 
-Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto De Venda) no terminal. O sistema conta com Frente de Caixa e ferramentas de gerenciamento para o usuário.
+Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto De Venda) de um Super Mercado no terminal. O sistema conta com Frente de Caixa e ferramentas de gerenciamento para o usuário.
 
 > ⚙️ Em construção... 
 
@@ -16,6 +16,10 @@ Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto
 |---------|-------------------------|
 | f       | Finalizar compra / Sair |
 | c       | Cancelar item           |
+
+### # Fluxo da aplicação
+
+
 
 ### # Exemplo de uso
 ```
