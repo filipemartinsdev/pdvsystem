@@ -14,13 +14,6 @@ public final class FrontEndCashier {
     private static Session currentSession;
 
     public static void init(User user){
-        UserRepository userRepository = new UserRepositoryImpl();
-
-        if (userRepository.isUserOn(user.getId())){
-            System.out.println("[ERROR] O usuário "+user.getName()+" está sendo utilizado.");
-            return;
-        }
-
         String input;
         Product product;
 
