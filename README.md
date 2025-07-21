@@ -17,6 +17,10 @@ Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto
 | f       | Finalizar compra / Sair |
 | c       | Cancelar item           |
 
+### # Fluxo da aplicação
+
+
+
 ### # Exemplo de uso
 ```
 >>>>>> CASHIER <<<<<<
