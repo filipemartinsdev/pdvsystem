@@ -19,7 +19,9 @@ Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto
 
 ### # Fluxo da aplicação
 
+> O usuário ( operador do caixa ) gerencia a aplicação por meio de códigos para produtos e funções, assim como em um PDV real.
 
+<img src="img1.png" width="40%">
 
 ### # Exemplo de uso
 ```
@@ -54,3 +56,17 @@ TROCO = R$0.02
 AGUARDE...
 >> Sessão finalizada <<
 ```
+
+## 📝 To do List
+- [x] Implementar Login de usuário 🔐
+- [x] Implementar registro de vendas 🏷️️
+- [ ] Implementar pesagem de produtos no PDV Frente de Caixa 🧮
+- [ ] Criar rotina: Entrada de produtos 📦
+- [ ] Criar rotina: Cadastro/gerenciamento de usuários 👥
+- [ ] Criar. rotina: Controle de estoque & precificação de produtos 🔍
+- [ ] Criar rotina: Dashboards 📉
+
+### 🚀 Última atualização
+
+- Upgrade no PDV Frente de Caixa: Melhorias no algoritmo;
+- Registro de vendas: atualização do Banco de Dados conforme vendas são feitas;
