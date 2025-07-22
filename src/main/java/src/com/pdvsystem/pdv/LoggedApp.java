@@ -10,9 +10,8 @@ import src.com.pdvsystem.io.InputHandler;
 import src.com.pdvsystem.io.InputManager;
 import src.com.pdvsystem.pdv.routines.Routine;
 
-public class LoggedApp { // TODO: IMPLEMENT THIS
+public class LoggedApp {
     private static boolean isOn = false;
-
     private static User loggedUser = null;
 
     public static void init(User user){
@@ -47,7 +46,6 @@ public class LoggedApp { // TODO: IMPLEMENT THIS
         userRepository.updateUserActive(LoggedApp.loggedUser.getId(), true);
 
         while(LoggedApp.isOn){
-//            InputManager.readString("");
             if (
                     loggedUser.getRoles().contains(Role.PDV_OPERATOR) ||
                     loggedUser.getRoles().contains(Role.PDV_TRAINEE)
