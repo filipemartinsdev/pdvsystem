@@ -57,6 +57,18 @@ AGUARDE...
 >> Sessão finalizada <<
 ```
 
+## 💼 Como usar: Rotinas
+A área de gerenciamento do PDV é baseada em rotinas, aplicações desaclopadas com funções específicas ( assim como sistemas ERPs robustos ). O objetivo dessa abordagem é garantir que a aplicação possa crescer de forma gradual e segura, evitando que um problema pequeno quebre o funcionamento do programa. 
+
+> ⚙️ Feature em desenvolvimento...
+
+Rotinas:
+-  [100] Controle de estoque
+-  [200] Financeiro
+-  [220] Gerenciamento
+
+
+
 ## 📝 To do List
 - [x] Implementar Login de usuário 🔐
 - [x] Implementar registro de vendas 🏷️️
