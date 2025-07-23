@@ -47,7 +47,7 @@ public class LoggedApp { // TODO: IMPLEMENT THIS
         userRepository.updateUserActive(LoggedApp.loggedUser.getId(), true);
 
         while(LoggedApp.isOn){
-//            inputManager.readString("");
+//            InputManager.readString("");
             if (
                     loggedUser.getRoles().contains(Role.PDV_OPERATOR) ||
                     loggedUser.getRoles().contains(Role.PDV_TRAINEE)

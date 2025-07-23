@@ -38,9 +38,6 @@ public class MainApp {
     public static void exit(){
         InputManager.closeScanner();
         MainApp.isOn = false;
-
-
-//        Login.logoutUser(MainApp.currentUser);
     }
 
     public static boolean isOn(){
