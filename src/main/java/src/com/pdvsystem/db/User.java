@@ -6,7 +6,7 @@ import src.com.pdvsystem.pdv.RoleManager;
 import java.util.List;
 
 
-public class User { // TODO: FINISH THIS
+public class User {
     private final String NAME;
     private final int ID;
 
