@@ -78,7 +78,14 @@ Rotinas:
 - [ ] Criar. rotina: Controle de estoque & precificação de produtos 🔍
 - [ ] Criar rotina: Dashboards 📉
 
-### 🚀 Última atualização
+### 🚀 Últimas atualizações
 
-- Upgrade no PDV Frente de Caixa: Melhorias no algoritmo;
-- Registro de vendas: atualização do Banco de Dados conforme vendas são feitas;
+- Novo algoritmo para capturar entradas de multiplicações de produtos no PDV Frente de caixa, com o seguinte padrão:
+```
+INPUT >> "MxP"
+M = Multiplicador ( peso ou quantidade )
+P = Código do produto
+```
+- Upgrade geral no PDV Frente de caixa: refatoração de código desnecessário;
+
+23/07/2025
