@@ -72,7 +72,7 @@ Rotinas:
 ## 📝 To do List
 - [x] Implementar Login de usuário 🔐
 - [x] Implementar registro de vendas 🏷️️
-- [ ] Implementar pesagem de produtos no PDV Frente de Caixa 🧮
+- [x] Implementar pesagem de produtos no PDV Frente de Caixa 🧮
 - [ ] Criar rotina: Entrada de produtos 📦
 - [ ] Criar rotina: Cadastro/gerenciamento de usuários 👥
 - [ ] Criar. rotina: Controle de estoque & precificação de produtos 🔍
