@@ -22,16 +22,16 @@ public class Session {
 
     private boolean isOpen;
 
-    public Session(Product firstProduct){
+    public Session(){
         this.isOpen = true;
 
         this.shopList = new ArrayList<>();
-        this.shopList.add(firstProduct.getId());
+//        this.shopList.add(firstProduct.getId());
 
         this.shopMap = new HashMap<>();
-        this.shopMap.put(firstProduct.getId(), firstProduct);
+//        this.shopMap.put(firstProduct.getId(), firstProduct);
 
-        this.lastProduct = firstProduct;
+//        this.lastProduct = firstProduct;
     }
 
     public void printShopList(){
@@ -101,16 +101,21 @@ public class Session {
         System.out.println("+-------------------------+");
     }
 
-    public void addItem(long itemId){
+    public void addItem(long itemId, float qtd){
         ProductRepository productRepository = new ProductRepositoryImpl();
         Product product = productRepository.getProductById(itemId);
 
         if(product!=null){
+            product.setUnitiesInOrder(qtd);
+
+//            Check IF the product is in the shopList
             if(this.shopMap.containsKey(itemId)){
                 product.setSortId(this.shopList.size()+1);
-                this.shopMap.get(itemId).incrementUnitiesInOrder();
+
+                this.shopMap.get(itemId).incrementUnitiesInOrder(qtd);
                 this.lastProduct = product;
             }
+
             else {
                 shopMap.put(itemId, product);
                 this.shopList.add(itemId);
@@ -134,26 +139,29 @@ public class Session {
         return false;
     }
 
-    public boolean isOpen() {
-        return isOpen;
-    }
-
     public Product getLastProduct(){
         return this.lastProduct;
     }
 
-//    USER FUNCTION
     public void cancelItem(){
         if (this.shopList.size() == 1){
             System.out.println("[ERROR] Can't set empty list.");
             return;
         }
 
-        System.out.print(">> Item #");
-        int id = FrontEndCashier.scan.nextInt();
+        String id = InputManager.readString(">> Item #");
+        if (!InputHandler.strIsLong(id)){
+            System.out.println("Opção inválida.");
+        }
 
-        if (removeItem(shopList.get(id-1) ) ){
-            System.out.println("Item #"+id+" has canceled.");
+        int idInt = Integer.parseInt(id);
+
+        if(idInt <= 0 || idInt > this.shopList.size()){
+            System.out.println("Opção inválida.");
+        }
+
+        if (removeItem(shopList.get(idInt-1) ) ){
+            System.out.println("Item #"+idInt+" has canceled.");
             this.updateSubtotal();
             return;
         }
@@ -181,7 +189,6 @@ public class Session {
             productRepository.sellAll(productList);
 
             System.out.println(">> Sessão finalizada <<\n");
-
             return true;
         }
         return false;
@@ -192,5 +199,9 @@ public class Session {
         for(Long productId : this.shopList){
             subtotal+=this.shopMap.get(productId).getPrice() * this.shopMap.get(productId).getUnitiesInOrder();
         }
+    }
+
+    public boolean isOpen() {
+        return isOpen;
     }
 }

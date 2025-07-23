@@ -30,8 +30,12 @@ public class Product {
         return unitiesInOrder;
     }
 
-    public void incrementUnitiesInOrder(){
-        this.unitiesInOrder++;
+    public void incrementUnitiesInOrder(float qtd){
+        this.unitiesInOrder+=qtd;
+    }
+
+    public void setUnitiesInOrder(float qtd){
+        this.unitiesInOrder=qtd;
     }
 
     public float getPrice() {

@@ -11,8 +11,7 @@ public class InputManager {
         }
 
         System.out.print(prompt);
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     public static int readInt(String prompt){

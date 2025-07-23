@@ -2,6 +2,7 @@ package src.com.pdvsystem.cashier;
 
 import src.com.pdvsystem.db.*;
 import src.com.pdvsystem.io.InputHandler;
+import src.com.pdvsystem.io.InputManager;
 
 import java.util.Scanner;
 
@@ -23,33 +24,42 @@ public final class FrontEndCashier {
                 System.out.print(">>> ");
                 input = FrontEndCashier.scan.nextLine();
 
+//                check if INPUT != productCode
                 if (!InputHandler.strIsLong(input)) {
-                    InputHandler.homeManager(input);
+                    IOManager.inputManager(input);
                     continue;
                 }
 
+//                Connect Database
                 ProductRepository productRepository = new ProductRepositoryImpl();
                 product = productRepository.getProductById(Long.parseLong(input));
 
+//                check IF product not exists
                 if (product == null) {
                     System.out.println("[ERROR] Item not exists");
                     continue;
                 }
 
-                FrontEndCashier.currentSession = new Session(product);
-                FrontEndCashier.isSessionOn = true;
+//                Init Session
+                FrontEndCashier.initNewSession();
+                FrontEndCashier.currentSession.addItem(product.getId(), product.getUnitiesInOrder());
             }
-
             if (!FrontEndCashier.isSessionOn) return;
 
-            FrontEndCashier.currentSession.updateSubtotal();
-            FrontEndCashier.currentSession.printShopList();
-            System.out.print(">> ");
-            input = FrontEndCashier.scan.nextLine();
 
-            InputHandler.manager(input, currentSession);
+            FrontEndCashier.currentSession.printShopList();
+
+//            Get AND Process userInput
+            input = InputManager.readString(">> ");
+            IOManager.inputManager(input);
+
             System.out.println();
         }
+    }
+
+    public static void initNewSession(){
+        FrontEndCashier.isSessionOn = true;
+        FrontEndCashier.currentSession = new Session();
     }
 
     public static void closeSession(){
@@ -68,5 +78,9 @@ public final class FrontEndCashier {
 
     public static boolean isSessionOn() {
         return isSessionOn;
+    }
+
+    public static Session getCurrentSession(){
+        return currentSession;
     }
 }
