@@ -86,6 +86,6 @@ INPUT >> "MxP"
 M = Multiplicador ( peso ou quantidade )
 P = Código do produto
 ```
-- ⚙️ Em progresso: Upgrade geral no PDV Frente de caixa | refatoração código e regras de negócio;
+- ⚙️ Em progresso: Upgrade geral no PDV | refatoração do código e regras de negócio.
 
 24/07/2025
