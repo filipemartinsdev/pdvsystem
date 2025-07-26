@@ -12,7 +12,7 @@ public enum PaymentMethod {
     private final int id;
     private final String details;
 
-    private PaymentMethod(int id, String details){
+    PaymentMethod(int id, String details){
         this.id = id;
         this.details = details;
     }

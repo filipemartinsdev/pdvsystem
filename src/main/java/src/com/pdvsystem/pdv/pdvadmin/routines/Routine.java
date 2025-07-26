@@ -1,4 +1,4 @@
-package src.com.pdvsystem.pdv.routines;
+package src.com.pdvsystem.pdv.pdvadmin.routines;
 
 public enum Routine {
     INVENTORY_CONTROL(100),

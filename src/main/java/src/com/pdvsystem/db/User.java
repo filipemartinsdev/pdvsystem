@@ -10,12 +10,12 @@ public class User {
     private final String NAME;
     private final int ID;
 
-    private List<Role> roleList;
+    private final List<Role> roleList;
 
-    public User(String name, int id, int[] roles){
+    public User(String name, int id, List<Role> roles){
         this.NAME = name;
         this.ID = id;
-        this.roleList = RoleManager.toRoleList(roles);
+        this.roleList = roles;
     }
 
     public String getName() {

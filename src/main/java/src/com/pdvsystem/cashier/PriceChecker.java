@@ -4,6 +4,7 @@ import src.com.pdvsystem.db.Product;
 import src.com.pdvsystem.db.ProductRepository;
 import src.com.pdvsystem.db.ProductRepositoryImpl;
 import src.com.pdvsystem.io.InputHandler;
+import src.com.pdvsystem.io.InputManager;
 
 public class PriceChecker {
     public static void init(){
@@ -13,8 +14,7 @@ public class PriceChecker {
 
         while(true){
             System.out.println();
-            System.out.print(">>> ");
-            String input = FrontEndCashier.scan.nextLine();
+            String input = InputManager.readString(">>> ");
 
             if(input.isBlank()){
                 return;

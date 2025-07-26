@@ -2,6 +2,7 @@ package src.com.pdvsystem.cashier;
 
 import src.com.pdvsystem.db.Product;
 import src.com.pdvsystem.io.InputHandler;
+import src.com.pdvsystem.io.InputManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,12 +11,13 @@ import java.util.HashMap;
 
 public class IOManager {
     public static void inputManager(String input){
+//        If input == BLANK: Increment the last added product
         if (input.isBlank()){
-            if (!FrontEndCashier.isSessionOn()){
+            if (!CashierApp.isSessionOn()){
                 return;
             }
 
-            Product lastProduct = FrontEndCashier.getCurrentSession().getLastProduct();
+            Product lastProduct = CashierApp.getCurrentSession().getLastProduct();
 
 //            return IF unity lastProduct == KG
             if (lastProduct.getUnity().equals("kg")){
@@ -23,12 +25,19 @@ public class IOManager {
             }
 
 //            increment lastProduct QTD
-            FrontEndCashier.getCurrentSession().addItem(lastProduct.getId(), 1);
+            CashierApp.getCurrentSession().addItem(lastProduct.getId(), 1);
             return;
         }
 
+//        Check if input == productID
         if(InputHandler.strIsLong(input)){
-            FrontEndCashier.getCurrentSession().addItem(Long.parseLong(input), 1);
+
+//            Init new Session if its have not
+            if (CashierApp.getCurrentSession()==null){
+                CashierApp.initNewSession();
+            }
+
+            CashierApp.getCurrentSession().addItem(Long.parseLong(input), 1);
             return;
         }
 
@@ -39,16 +48,16 @@ public class IOManager {
 //            check IF the product exists
             if (productQtdMap!=null){
 
-//                check IF is the first product of Session, so init new session
-                if(FrontEndCashier.getCurrentSession()==null){
-                    FrontEndCashier.initNewSession();
+//                check IF is the first product of Session, so run new session
+                if(CashierApp.getCurrentSession()==null){
+                    CashierApp.initNewSession();
                 }
 
                 for(long id : productQtdMap.keySet()){
                     productId = id;
                 }
 
-                FrontEndCashier.getCurrentSession().addItem(productId, productQtdMap.get(productId));
+                CashierApp.getCurrentSession().addItem(productId, productQtdMap.get(productId));
             }
             return;
         }
@@ -61,32 +70,55 @@ public class IOManager {
         System.out.println("[ERROR] Invalid input");
     }
 
+    private static boolean confirmCloseApp(){
+        System.out.println("    Confirmar saída?");
+        System.out.println("    [1] Sim");
+        System.out.println("    [2] Não");
+
+        String input = InputManager.readString("  >> ");
+
+        if (input.equals("1")){
+            return true;
+        }
+
+        else if (input.equals("2")){
+            return false;
+        }
+
+        else {
+            return false;
+        }
+    }
+
     private static void functionInputHandler(String input){
         if (!InputHandler.strIsOneChar(input)){
             return;
         }
 
-        if (input.equals("f")){
-            if (FrontEndCashier.getCurrentSession()!=null){
-                if(FrontEndCashier.getCurrentSession().finish()) {
-                    FrontEndCashier.closeSession();
+        if (input.equals(InputFunction.FINISH_SESSION.getInputKey())){
+//            CHECK IF IT HAS A SESSION ON
+            if (CashierApp.getCurrentSession()==null){
+                if (IOManager.confirmCloseApp()){
+                    CashierApp.closeApp();
                 }
             }
 
             else {
-                FrontEndCashier.closeSession();
+                if(CashierApp.getCurrentSession().finish()) {
+                    CashierApp.closeSession();
+                }
             }
         }
 
-        else if(input.equals("c")){
-            if (!FrontEndCashier.isSessionOn()){
+        else if(input.equals(InputFunction.CANCEL_ITEM.getInputKey())){
+            if (!CashierApp.isSessionOn()){
                 System.out.println("Nenhuma sessão iniciada.");
                 return;
             }
-            FrontEndCashier.getCurrentSession().cancelItem();
+            CashierApp.getCurrentSession().cancelItem();
         }
 
-        else if(input.equals("m")){
+        else if(input.equals(InputFunction.PRICE_CHECKER.getInputKey())){
             PriceChecker.init();
         }
         else {
@@ -97,7 +129,6 @@ public class IOManager {
 //    check if input has the pattern "NxID"
 //    where N == any number
 //    AND ID == productCode
-
     private static boolean inputIsMultiplyFunction(String input){
         Pattern pattern = Pattern.compile("^[0-9.]+x[0-9]+$");
         Matcher matcher = pattern.matcher(input);

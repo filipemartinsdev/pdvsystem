@@ -1,5 +1,6 @@
 package src.com.pdvsystem.db;
 
+import java.util.List;
 import src.com.pdvsystem.pdv.Role;
 
 public interface UserRepository {
@@ -17,9 +18,13 @@ public interface UserRepository {
 
     boolean isUserOn(int userId);
 
-    boolean userHasRole(int userId, Role role);
+    boolean userHasRole(int userId, Role... role);
 
-    boolean authUser(int userId, String password);
+    List<Role> getUserRoles(int userId);
+
+    boolean authenticateUser(int userId, String password);
+
+    boolean authenticateUser(String userName, String password);
 
 
 //    UPDATE

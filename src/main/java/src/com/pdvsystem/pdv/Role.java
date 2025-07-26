@@ -19,4 +19,14 @@ public enum Role {
     public int getID(){
         return this.ID;
     }
+
+    public static Role getRole(int roleId){
+        for (Role r:Role.values()){
+            if (r.getID() == roleId){
+                return r;
+            }
+        }
+
+        return null;
+    }
 }

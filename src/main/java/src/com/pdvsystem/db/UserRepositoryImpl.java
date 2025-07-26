@@ -1,10 +1,16 @@
 package src.com.pdvsystem.db;
 
 import src.com.pdvsystem.pdv.Role;
-import src.com.pdvsystem.pdv.util.TypeCasting;
 
-import java.sql.*;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Array;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
@@ -58,19 +64,55 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    @Override // TODO: IMPLEMENT THIS
-    public boolean userHasRole(int userId, Role role) {
+    @Override
+    public boolean userHasRole(int userId, Role... roles) {
+        String sql = "SELECT roles FROM users WHERE id = ?";
+        try {
+            Connection conn = DriverManager.getConnection(
+                    DatabaseInfo.getDbUrl(),
+                    DatabaseInfo.getDbUser(),
+                    DatabaseInfo.getDbPassword()
+            );
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                Array rolesArray = result.getArray("roles");
+                Integer[] arr = (Integer[]) rolesArray.getArray();
+
+                int rolesFoundCount = 0;
+
+                for(Role r : roles){
+                    for(int i : arr){
+                        if (i == r.getID()) {
+                            rolesFoundCount++;
+                        }
+                    }
+                }
+
+                if (rolesFoundCount == roles.length) {
+                    return true;
+                }
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return false;
     }
 
-    @Override
-    public boolean authUser(int userId, String password) {
-        if(!userExists(userId)){
-            System.out.println("[ERROR] User not exists.");
-            return false;
-        }
+    @Override // TODO: IMPLEMENT THIS
+    public List<Role> getUserRoles(int userId) {
+        return List.of();
+    }
 
+    @Override
+    public boolean authenticateUser(int userId, String password) {
         String sql = "SELECT password FROM users WHERE id = ?;";
+        boolean out = false;
 
         try {
             Connection conn = DriverManager.getConnection(DatabaseInfo.getDbUrl(), DatabaseInfo.getDbUser(), DatabaseInfo.getDbPassword());
@@ -82,45 +124,56 @@ public class UserRepositoryImpl implements UserRepository {
             result.next();
             conn.close();
 
-            return password.equals(result.getString(1));
+//            CHECK IF USER EXISTS
+            if (result.next()){
+                if (password.equals(result.getString(1))){
+                    out = true;
+                }
+                else {
+                    System.out.println("[ERROR] Senha incorreta");
+                }
+            }
+
+            else {
+                System.out.println("[ERROR] Usuário inexistente");
+            }
+
+            conn.close();
+            return out;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public User getUserById(int userId) {
-        String sql = "SELECT * FROM users WHERE id = ?;";
+    public boolean authenticateUser(String userName, String password) {
+        String sql = "SELECT password FROM users WHERE name = ?;";
+        boolean out = false;
 
         try {
             Connection conn = DriverManager.getConnection(DatabaseInfo.getDbUrl(), DatabaseInfo.getDbUser(), DatabaseInfo.getDbPassword());
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, userId);
+            statement.setString(1, userName);
 
             ResultSet result = statement.executeQuery();
 
+            if(result.next()) {
+                if (password.equals(result.getString(1))) {
+                    out = true;
+                }
 
-//            CHECK IF USER EXISTS
-            if(!result.next()){
-//                System.out.println("[ERROR] User not exists.");
-                conn.close();
-
-                return null;
+                else {
+                    System.out.println("[ERROR] Senha incorreta");
+                }
             }
 
-            Array arraySql = result.getArray(4);
-            int[] roles = (int[]) arraySql.getArray();
-
-            User user = new User(
-                    result.getString(2),
-                    result.getInt(1),
-                    roles
-            );
+            else {
+                System.out.println("[ERROR] Usuário inexistente");
+            }
 
             conn.close();
-            return user;
-
+            return out;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -145,17 +198,65 @@ public class UserRepositoryImpl implements UserRepository {
                 return null;
             }
 
-            Array arraySql = result.getArray(4);
+            Array arraySql = result.getArray("roles");
+            Integer[] roles = (Integer[]) arraySql.getArray();
+            List<Role> roleList = new ArrayList<>();
 
-            int[] roles;
-
-            Integer[] integerArray = (Integer[]) arraySql.getArray();
-            roles = TypeCasting.toIntArray(integerArray);
+            for (int roleId : roles) {
+                Role r = Role.getRole(roleId);
+                if (r!=null) {
+                    roleList.add(Role.getRole(roleId));
+                }
+            }
 
             User user = new User(
                     result.getString(2),
                     result.getInt(1),
-                    roles
+                    roleList
+            );
+
+            conn.close();
+            return user;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE id = ?;";
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseInfo.getDbUrl(), DatabaseInfo.getDbUser(), DatabaseInfo.getDbPassword());
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet result = statement.executeQuery();
+
+//            CHECK IF USER EXISTS
+            if(!result.next()){
+                System.out.println("[ERROR] User not exists.");
+                conn.close();
+
+                return null;
+            }
+
+            Array arraySql = result.getArray("roles");
+            Integer[] roles = (Integer[]) arraySql.getArray();
+            List<Role> roleList = new ArrayList<>();
+
+            for (int roleId : roles) {
+                Role r = Role.getRole(roleId);
+                if (r!=null) {
+                    roleList.add(Role.getRole(roleId));
+                }
+            }
+
+            User user = new User(
+                    result.getString(2),
+                    result.getInt(1),
+                    roleList
             );
 
             conn.close();
