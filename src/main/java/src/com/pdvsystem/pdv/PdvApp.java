@@ -6,9 +6,11 @@ import src.com.pdvsystem.io.InputManager;
 import src.com.pdvsystem.pdv.pdvadmin.PdvAdminApp;
 
 public class PdvApp {
-    private static boolean wantToExit = false;
+    private static boolean wantToExit;
 
     public static void run(){
+        PdvApp.wantToExit = false;
+
         while(!wantToExit){
             System.out.println("\n>>>>>> PDV <<<<<<\n");
             printHomeOptions();

@@ -28,7 +28,7 @@ public class MainApp {
             if(input.equals("1")){
                 LoginApp.run();
 
-                if (isLogged) {
+                if (MainApp.isLogged) {
                     PdvApp.run();
                 }
                 continue;
@@ -53,6 +53,7 @@ public class MainApp {
         return MainApp.loggedUser;
     }
 
+    public static boolean isLogged(){return MainApp.isLogged;}
 
     public static void setLogged(boolean value){
         MainApp.isLogged = value;
