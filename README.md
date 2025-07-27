@@ -79,13 +79,6 @@ Rotinas:
 - [ ] Criar rotina: Dashboards 📉
 
 ### 🚀 Últimas atualizações
+- Refatoração geral nos algoritmos; 
 
-- Novo algoritmo para capturar entradas de multiplicações de produtos no PDV Frente de caixa, com o seguinte padrão:
-```
-INPUT >> "MxP"
-M = Multiplicador ( peso ou quantidade )
-P = Código do produto
-```
-- ⚙️ Em progresso: Upgrade geral no PDV | refatoração do código e regras de negócio.
-
-24/07/2025
+27/07/2025
