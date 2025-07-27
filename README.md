@@ -9,6 +9,17 @@ Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto
 - [x] 📦 Controle de estoque 
 - [x] 💿 Persistência em Banco de Dados
 
+## Requisitos
+- Git 2.23+
+- Java SE 17+
+
+## Como executar ( Funcionando em breve... )
+```
+git clone github.com/filipemartinsdev/pdvsystem
+cd pdvsystem
+java -jar pdvsystem.jar
+```
+
 ## 💵 Como usar: Frente de Caixa
 
 ### # Funções
@@ -16,46 +27,8 @@ Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto
 |---------|-------------------------|
 | f       | Finalizar compra / Sair |
 | c       | Cancelar item           |
+| m       | Consulta de preços      |
 
-### # Fluxo da aplicação
-
-> O usuário ( operador do caixa ) gerencia a aplicação por meio de códigos para produtos e funções, assim como em um PDV real.
-
-<img src="img1.png" width="40%">
-
-### # Exemplo de uso
-```
->>>>>> CASHIER <<<<<<
->>> 445
-+-----------------------------------------------------------------------------------------+
-|       | codigo          | nome                 |        preco |      qtd |        total |
-+-----------------------------------------------------------------------------------------+
-| #1    | 445             | Melancia             | R$      9.98 |    1 uni | R$      9.98 |
-+-----------------------------------------------------------------------------------------+
-| Melancia             R$9.98           1 uni |
-+---------------------------------------------+
-| SUBTOTAL = R$9.98       |
-+-------------------------+
->> f
-
->> Tecle ENTER para voltar <<
-Qual a forma de pagamento?
-   [0] Dinheiro
-   [1] Débito
-   [2] Crédito
-   [3] Pix
-   [4] Crédito manual
-   [5] Boleto
-   [6] Vale troca
->> 0
->> Valor de entrada: 10.00
-
-AGUARDE...
-
-TROCO = R$0.02
-AGUARDE...
->> Sessão finalizada <<
-```
 
 ## 💼 Como usar: Rotinas
 A área de gerenciamento do PDV é baseada em rotinas, aplicações desaclopadas com funções específicas ( assim como sistemas ERPs robustos ). O objetivo dessa abordagem é garantir que a aplicação possa crescer de forma gradual e segura, evitando que um problema pequeno quebre o funcionamento do programa. 
