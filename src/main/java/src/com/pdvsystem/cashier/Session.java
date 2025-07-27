@@ -25,12 +25,7 @@ public class Session {
 
     public Session(){
         this.shopList = new ArrayList<>();
-//        this.shopList.add(firstProduct.getId());
-
         this.shopMap = new HashMap<>();
-//        this.shopMap.put(firstProduct.getId(), firstProduct);
-
-//        this.lastProduct = firstProduct;
     }
 
 

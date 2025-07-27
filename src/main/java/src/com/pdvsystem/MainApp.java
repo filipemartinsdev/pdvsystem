@@ -19,7 +19,9 @@ public class MainApp {
 
     private static void run() {
         while(!isLogged && !wantToExit){
-            System.out.println("\n[1] Login");
+            System.out.println("\n>>>>>> HOME <<<<<<\n");
+
+            System.out.println("[1] Login");
             System.out.println("[2] Sair");
 
             String input = InputManager.readString(">> ");

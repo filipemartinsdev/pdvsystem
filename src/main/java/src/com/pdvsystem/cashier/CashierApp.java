@@ -23,9 +23,9 @@ public final class CashierApp {
 
                 IOManager.inputManager(input);
 
-                if (!CashierApp.isSessionOn) return;
-
-
+                if (!CashierApp.isAppOn){
+                    return;
+                }
             }
 
             CashierApp.currentSession.printShopList();

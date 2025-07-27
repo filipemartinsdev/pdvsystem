@@ -62,6 +62,7 @@ public class IOManager {
             return;
         }
 
+//        Check if input == user function
         else if(InputHandler.strHasOnlyText(input)){
             functionInputHandler(input);
             return;
@@ -70,39 +71,20 @@ public class IOManager {
         System.out.println("[ERROR] Invalid input");
     }
 
-    private static boolean confirmCloseApp(){
-        System.out.println("    Confirmar saída?");
-        System.out.println("    [1] Sim");
-        System.out.println("    [2] Não");
-
-        String input = InputManager.readString("  >> ");
-
-        if (input.equals("1")){
-            return true;
-        }
-
-        else if (input.equals("2")){
-            return false;
-        }
-
-        else {
-            return false;
-        }
-    }
-
     private static void functionInputHandler(String input){
         if (!InputHandler.strIsOneChar(input)){
             return;
         }
 
         if (input.equals(InputFunction.FINISH_SESSION.getInputKey())){
-//            CHECK IF IT HAS A SESSION ON
+//            CHECK IF IT HAS NOT A SESSION ON
             if (CashierApp.getCurrentSession()==null){
                 if (IOManager.confirmCloseApp()){
                     CashierApp.closeApp();
                 }
             }
 
+//            IF IT HAS AN OPEN SESSION
             else {
                 if(CashierApp.getCurrentSession().finish()) {
                     CashierApp.closeSession();
@@ -123,6 +105,27 @@ public class IOManager {
         }
         else {
             System.out.println("[ERROR] Invalid function.");
+        }
+    }
+
+    private static boolean confirmCloseApp(){
+        System.out.println("    Confirmar saída?");
+        System.out.println("    [1] Sim");
+        System.out.println("    [2] Não");
+
+        String input = InputManager.readString("  >> ");
+
+        if (input.equals("1")){
+            return true;
+        }
+
+        else if (input.equals("2")){
+            return false;
+        }
+
+        else {
+            System.out.println("[ERROR] Opção inválida");
+            return false;
         }
     }
 
