@@ -13,18 +13,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Session {
+//    Map<Long ProductID, OBJ Product>
     private final Map<Long, Product> shopMap;
+
+//    List<Long ProductID>
     private final List<Long> shopList;
 
     private Product lastProduct;
 
     private float subtotal;
 
-    private boolean isOpen;
-
     public Session(){
-        this.isOpen = true;
-
         this.shopList = new ArrayList<>();
 //        this.shopList.add(firstProduct.getId());
 
@@ -33,6 +32,110 @@ public class Session {
 
 //        this.lastProduct = firstProduct;
     }
+
+
+    public void addItem(long itemId, float qtd){
+        ProductRepository productRepository = new ProductRepositoryImpl();
+        Product product = productRepository.getProductById(itemId);
+
+        if(product!=null){
+            product.setUnitiesInOrder(qtd);
+
+//            Check IF the product is in the shopList
+            if(this.shopMap.containsKey(itemId)){
+                product.setSortId(this.shopList.size()+1);
+
+                this.shopMap.get(itemId).incrementUnitiesInOrder(qtd);
+                this.lastProduct = product;
+            }
+
+            else {
+                shopMap.put(itemId, product);
+                this.shopList.add(itemId);
+                this.lastProduct = product;
+            }
+
+            updateSubtotal();
+            return;
+        }
+        System.out.println("[ERROR] Item not exists.");
+    }
+
+    public Product getLastProduct(){
+        return this.lastProduct;
+    }
+
+    public void updateSubtotal(){
+        this.subtotal = 0;
+        for(Long productId : this.shopList){
+            subtotal+=this.shopMap.get(productId).getPrice() * this.shopMap.get(productId).getUnitiesInOrder();
+        }
+    }
+
+    public void cancelItem(){
+        if (this.shopList.size() == 1){
+            System.out.println("[ERROR] Can't set empty list.");
+            return;
+        }
+
+        String id = InputManager.readString(">> Item #");
+        if (!InputHandler.strIsLong(id)){
+            System.out.println("Opção inválida.");
+        }
+
+        int idInt = Integer.parseInt(id);
+
+        if(idInt <= 0 || idInt > this.shopList.size()){
+            System.out.println("Opção inválida.");
+        }
+
+        if (removeItem(shopList.get(idInt-1) ) ){
+            System.out.println("Item #"+idInt+" has canceled.");
+            this.updateSubtotal();
+            return;
+        }
+        System.out.println("[ERROR] Item not canceled.");
+    }
+
+    private boolean removeItem(long itemId) {
+        if (this.shopMap.containsKey(itemId)) {
+            this.shopMap.remove(itemId);
+            this.shopList.remove(itemId);
+            updateSubtotal();
+            return true;
+        }
+        updateSubtotal();
+        return false;
+    }
+
+
+    public boolean finish(){
+        System.out.println();
+
+        Payment payment = new Payment(this.subtotal);
+        payment.run();
+
+        if (payment.isComplete()){
+            System.out.println("AGUARDE...");
+
+            ProductRepository productRepository = new ProductRepositoryImpl();
+//            for (long productId : this.shopList){
+//                productRepository.sell(productId, shopMap.get(productId).getUnitiesInOrder());
+//            }
+            List<Product> productList = new ArrayList<>();
+
+            for (Product product:this.shopMap.values()){
+                productList.add(product);
+            }
+
+            productRepository.sellAll(productList);
+
+            System.out.println(">> Sessão finalizada <<\n");
+            return true;
+        }
+        return false;
+    }
+
 
     public void printShopList(){
         MaxLengthPrinter maxPrinter = new MaxLengthPrinter(20);
@@ -84,8 +187,8 @@ public class Session {
 
         System.out.printf(
                 this.lastProduct.getUnity().equals("kg")?
-                    "| %-20s R$%-10.2f %5.3f %-3s |\n":
-                    "| %-20s R$%-10.2f %5.0f %-3s |\n",
+                        "| %-20s R$%-10.2f %5.3f %-3s |\n":
+                        "| %-20s R$%-10.2f %5.0f %-3s |\n",
                 maxPrinter.get(this.lastProduct.getName()),
                 this.lastProduct.getPrice(),
                 this.lastProduct.getUnitiesInOrder(),
@@ -99,109 +202,5 @@ public class Session {
 
         System.out.printf("| SUBTOTAL = R$%-10.2f |\n", this.subtotal);
         System.out.println("+-------------------------+");
-    }
-
-    public void addItem(long itemId, float qtd){
-        ProductRepository productRepository = new ProductRepositoryImpl();
-        Product product = productRepository.getProductById(itemId);
-
-        if(product!=null){
-            product.setUnitiesInOrder(qtd);
-
-//            Check IF the product is in the shopList
-            if(this.shopMap.containsKey(itemId)){
-                product.setSortId(this.shopList.size()+1);
-
-                this.shopMap.get(itemId).incrementUnitiesInOrder(qtd);
-                this.lastProduct = product;
-            }
-
-            else {
-                shopMap.put(itemId, product);
-                this.shopList.add(itemId);
-                this.lastProduct = product;
-            }
-
-            updateSubtotal();
-            return;
-        }
-        System.out.println("[ERROR] Item not exists.");
-    }
-
-    private boolean removeItem(long itemId) {
-        if (this.shopMap.containsKey(itemId)) {
-            this.shopMap.remove(itemId);
-            this.shopList.remove(itemId);
-            updateSubtotal();
-            return true;
-        }
-        updateSubtotal();
-        return false;
-    }
-
-    public Product getLastProduct(){
-        return this.lastProduct;
-    }
-
-    public void cancelItem(){
-        if (this.shopList.size() == 1){
-            System.out.println("[ERROR] Can't set empty list.");
-            return;
-        }
-
-        String id = InputManager.readString(">> Item #");
-        if (!InputHandler.strIsLong(id)){
-            System.out.println("Opção inválida.");
-        }
-
-        int idInt = Integer.parseInt(id);
-
-        if(idInt <= 0 || idInt > this.shopList.size()){
-            System.out.println("Opção inválida.");
-        }
-
-        if (removeItem(shopList.get(idInt-1) ) ){
-            System.out.println("Item #"+idInt+" has canceled.");
-            this.updateSubtotal();
-            return;
-        }
-        System.out.println("[ERROR] Item not canceled.");
-    }
-
-    public boolean finish(){
-        System.out.println();
-
-        Payment payment = new Payment(this.subtotal);
-        payment.init();
-
-        if (payment.isComplete()){
-            System.out.println("AGUARDE...");
-
-            ProductRepository productRepository = new ProductRepositoryImpl();
-
-//            for (long productId : this.shopList){
-//                productRepository.sell(productId, shopMap.get(productId).getUnitiesInOrder());
-//            }
-            List<Product> productList = new ArrayList<>();
-            for (Product product:this.shopMap.values()){
-                productList.add(product);
-            }
-            productRepository.sellAll(productList);
-
-            System.out.println(">> Sessão finalizada <<\n");
-            return true;
-        }
-        return false;
-    }
-
-    public void updateSubtotal(){
-        this.subtotal = 0;
-        for(Long productId : this.shopList){
-            subtotal+=this.shopMap.get(productId).getPrice() * this.shopMap.get(productId).getUnitiesInOrder();
-        }
-    }
-
-    public boolean isOpen() {
-        return isOpen;
     }
 }

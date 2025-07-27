@@ -11,7 +11,7 @@ public class Payment {
         this.SALE_VALUE = value;
     }
 
-    public void init(){
+    public void run(){
         System.out.println(">> Tecle ENTER para voltar <<");
         printOptions();
         String input = InputManager.readString(">> ");
@@ -27,6 +27,7 @@ public class Payment {
 
         paymentInputManager(inputInt);
     }
+
 
     private void paymentInputManager(int option){
         PaymentMethod inputMethod = null;
@@ -45,7 +46,6 @@ public class Payment {
 
         paymentMethodHandler(inputMethod);
     }
-
 
     private void paymentMethodHandler(PaymentMethod option){
         if (option == PaymentMethod.MONEY) {
@@ -77,6 +77,7 @@ public class Payment {
         }
     }
 
+
     private void printOptions(){
         System.out.println("Qual a forma de pagamento?");
         for (PaymentMethod method : PaymentMethod.values()){
@@ -84,6 +85,8 @@ public class Payment {
         }
     }
 
+
+//  Payment methods
 
     private void initPaymentMoney(){
         float enterValue = 0;
@@ -162,6 +165,8 @@ public class Payment {
 
         this.isComplete = true;
     }
+
+//    GETTERS
 
     public boolean isComplete() {
         return this.isComplete;

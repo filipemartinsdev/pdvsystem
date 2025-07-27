@@ -32,7 +32,6 @@ public final class CashierApp {
 
             input = InputManager.readString(">> ");
             IOManager.inputManager(input);
-            System.out.println();
         }
     }
 
