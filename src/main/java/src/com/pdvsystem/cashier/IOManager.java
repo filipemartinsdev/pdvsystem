@@ -1,6 +1,8 @@
 package src.com.pdvsystem.cashier;
 
 import src.com.pdvsystem.db.Product;
+import src.com.pdvsystem.db.ProductRepository;
+import src.com.pdvsystem.db.ProductRepositoryImpl;
 import src.com.pdvsystem.io.InputHandler;
 import src.com.pdvsystem.io.InputManager;
 
@@ -31,6 +33,14 @@ public class IOManager {
 
 //        Check if input == productID
         if(InputHandler.strIsLong(input)){
+            ProductRepository productRepository = new ProductRepositoryImpl();
+            Product product = productRepository.getProductById(Long.parseLong(input));
+
+//            Check if product exists
+            if (product==null){
+                System.out.println("[ERROR] Código inválido");
+                return;
+            }
 
 //            Init new Session if its have not
             if (CashierApp.getCurrentSession()==null){
