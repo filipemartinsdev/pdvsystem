@@ -27,14 +27,14 @@ public class IOManager {
             }
 
 //            increment lastProduct QTD
-            CashierApp.getCurrentSession().addItem(lastProduct.getId(), 1);
+            CashierApp.getCurrentSession().addItem(lastProduct.getCode(), 1);
             return;
         }
 
 //        Check if input == productID
         if(InputHandler.strIsLong(input)){
             ProductRepository productRepository = new ProductRepositoryImpl();
-            Product product = productRepository.getProductById(Long.parseLong(input));
+            Product product = productRepository.getProductByCode(Long.parseLong(input));
 
 //            Check if product exists
             if (product==null){

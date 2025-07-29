@@ -26,7 +26,7 @@ public class PriceChecker {
             }
 
             ProductRepository productRepository = new ProductRepositoryImpl();
-            Product product = productRepository.getProductById(Long.parseLong(input));
+            Product product = productRepository.getProductByCode(Long.parseLong(input));
 
             if (product==null) {
                 System.out.println("[ERROR] Produto não cadastrado");

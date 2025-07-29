@@ -2,15 +2,15 @@ package src.com.pdvsystem.db;
 
 public class Product {
     private final String name;
-    private final long id;
+    private final long code;
     private final float price;
     private final String unity;
     private int sortId;
 
     private float unitiesInOrder;
 
-    public Product(long id, String name, float price, String unity){
-        this.id = id;
+    public Product(long code, String name, float price, String unity){
+        this.code = code;
         this.name = name;
         this.price = price;
         this.unity = unity;
@@ -22,8 +22,8 @@ public class Product {
         return this.name;
     }
 
-    public long getId() {
-        return id;
+    public long getCode() {
+        return this.code;
     }
 
     public float getUnitiesInOrder() {
