@@ -24,7 +24,7 @@ O sistema é baseado em dois módulos principais:
 ## Como executar
 - Clone o projeto
     ```
-    git clone github.com/filipemartinsdev/pdvsystem
+    git clone https://github.com/filipemartinsdev/pdvsystem
     cd pdvsystem
     ``` 
 - Copie o arquivo .env.example
