@@ -1,18 +1,11 @@
 # 🛒 Sistema de PDV em linha de comando
 > ⚙️ Em construção...
-<<<<<<< HEAD
 >
 > Sinta-se avontade para contribuir!
 
 
 Essa é uma aplicação que simula um sistema PDV (Ponto De Venda) de um Super Mercado no terminal.
 O sistema é baseado em dois módulos principais:
-=======
-> 
-> Sinta-se avontade para contribuir!
-
-Essa é uma aplicação que simula um sistema PDV (Ponto De Venda) de um Super Mercado no terminal. 
-O sistema é baseado em dois módulos principais:
 
 - 💵 PDV Cashier
   
@@ -20,16 +13,6 @@ O sistema é baseado em dois módulos principais:
 
 - 💼 PDV Admin
   
-  Sistem de gerenciamento baseado em rotinas desaclopadas, cada uma com sua função específica.
-
->>>>>>> 45ece56a44a03567af3b878a5ecde1f32d944076
-
-- 💵 PDV Cashier
-
-  Frente de caixa para vendas.
-
-- 💼 PDV Admin
-
   Sistem de gerenciamento baseado em rotinas desaclopadas, cada uma com sua função específica.
 
 <hr>
@@ -108,7 +91,6 @@ O PdvAdmin é um módulo da aplicação voltado ao gerenciamento do sistema. Nes
 
 
 
-
 ## 📝 To do List
 - [x] Implementar Login de usuário 🔐
 - [x] Implementar registro de vendas 🏷️️
@@ -119,13 +101,6 @@ O PdvAdmin é um módulo da aplicação voltado ao gerenciamento do sistema. Nes
 - [ ] Criar rotina: Dashboards 📉
 
 ### 🚀 Últimas atualizações
-<<<<<<< HEAD
-- Refatoração geral nos algoritmos; 
-
-27/07/2025
-=======
-- Refatoração geral nos algoritmos;
 - Upando projeto para a nuvem: online publicamente! ☁️
 
 28/07/2025
->>>>>>> develop
