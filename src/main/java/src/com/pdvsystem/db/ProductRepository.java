@@ -3,9 +3,9 @@ package src.com.pdvsystem.db;
 import java.util.List;
 
 public interface ProductRepository {
-    Product getProductById(long id);
+    Product getProductByCode(long code);
 
-    void sell(long productId, float qtd);
+    void sell(long productCode, float qtd);
 
     void sellAll(List<Product> list);
 }

@@ -31,7 +31,7 @@ public class Session {
 
     public void addItem(long itemId, float qtd){
         ProductRepository productRepository = new ProductRepositoryImpl();
-        Product product = productRepository.getProductById(itemId);
+        Product product = productRepository.getProductByCode(itemId);
 
         if(product!=null){
             product.setUnitiesInOrder(qtd);
@@ -162,7 +162,7 @@ public class Session {
                             "| #%-4d | %-15d | %-20s | R$%10.2f | %5.3f %s | R$%10.2f |\n": // print for KG price
                             "| #%-4d | %-15d | %-20s | R$%10.2f | %4.0f %s | R$%10.2f |\n", // print for UNI price
                     idCount,
-                    product.getId(),
+                    product.getCode(),
                     maxPrinter.get(product.getName()),
                     product.getPrice(),
                     product.getUnitiesInOrder(),

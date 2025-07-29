@@ -1,6 +1,8 @@
 package src.com.pdvsystem.cashier;
 
 import src.com.pdvsystem.db.Product;
+import src.com.pdvsystem.db.ProductRepository;
+import src.com.pdvsystem.db.ProductRepositoryImpl;
 import src.com.pdvsystem.io.InputHandler;
 import src.com.pdvsystem.io.InputManager;
 
@@ -25,12 +27,20 @@ public class IOManager {
             }
 
 //            increment lastProduct QTD
-            CashierApp.getCurrentSession().addItem(lastProduct.getId(), 1);
+            CashierApp.getCurrentSession().addItem(lastProduct.getCode(), 1);
             return;
         }
 
 //        Check if input == productID
         if(InputHandler.strIsLong(input)){
+            ProductRepository productRepository = new ProductRepositoryImpl();
+            Product product = productRepository.getProductByCode(Long.parseLong(input));
+
+//            Check if product exists
+            if (product==null){
+                System.out.println("[ERROR] Código inválido");
+                return;
+            }
 
 //            Init new Session if its have not
             if (CashierApp.getCurrentSession()==null){
@@ -138,10 +148,11 @@ public class IOManager {
         return matcher.find();
     }
 
-//    input:  "0.500x445"
-//    out:    {445, 0.500}
-//    out = Map<Long, Float>
-//             <code,   qtd>
+/*    input:  "0.500x445"
+      out:    {445, 0.500}
+      out = Map<Long, Float>
+               <code,   qtd>
+*/
     private static Map<Long, Float> getMultiplyFunctionMap(String input){
 //        INT multiply pattern
 //        ex:   10x445
