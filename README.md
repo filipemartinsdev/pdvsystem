@@ -49,23 +49,6 @@ O sistema é baseado em dois módulos principais:
 | testeadm    | 000       |
 | testecaixa  | 000       |
 
-## Requisitos
-- Git 2.23+
-- Java SE 17+
-
-## Como executar ( Funcionando em breve... )
-```
-git clone github.com/filipemartinsdev/pdvsystem
-cd pdvsystem
-java -jar pdvsystem.jar
-```
-
-### 👤 Usuários de teste:
-
-| NOME        | SENHA     |
-|-------------|-----------|
-| admteste    | 000       |
-| caixateste  | 000       |
 
 ## 💵 Como usar: Frente de Caixa
 
