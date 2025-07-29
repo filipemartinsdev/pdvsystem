@@ -32,6 +32,7 @@
   </dependencies>
 
   <build>
+    <finalName>pdvsystem</finalName>
 <!--    Plugin to execute tests -->
     <plugins>
       <plugin>
@@ -57,6 +58,7 @@
 <!--          </archive>-->
 <!--        </configuration>-->
 <!--      </plugin>-->
+
 
 <!--      Plugin Maven Shade to create JAR with dependencies ( FAT JAR )-->
       <plugin>
