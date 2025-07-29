@@ -2,6 +2,8 @@ package src.com.pdvsystem.cashier;
 
 import src.com.pdvsystem.io.InputManager;
 
+import javax.imageio.plugins.tiff.TIFFImageReadParam;
+
 public final class CashierApp {
     private static boolean isAppOn;
     private static boolean isSessionOn;
@@ -27,6 +29,7 @@ public final class CashierApp {
                     return;
                 }
             }
+
 
             CashierApp.currentSession.printShopList();
 

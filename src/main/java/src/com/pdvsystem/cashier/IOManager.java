@@ -53,21 +53,27 @@ public class IOManager {
 
         if(inputIsMultiplyFunction(input)){
             Map<Long, Float> productQtdMap = getMultiplyFunctionMap(input);
-            long productId = 0;
 
-//            check IF the product exists
+//            check IF the input is valid
             if (productQtdMap!=null){
+                long productId = (Long) productQtdMap.keySet().toArray()[0];
+                float productQtd = productQtdMap.get(productId);
 
-//                check IF is the first product of Session, so run new session
-                if(CashierApp.getCurrentSession()==null){
-                    CashierApp.initNewSession();
+                ProductRepository productRepository = new ProductRepositoryImpl();
+                Product product = productRepository.getProductByCode(productId);
+
+                if(product!=null){
+//                    check IF is the first product of Session, so run new session
+                    if(CashierApp.getCurrentSession()==null){
+                        CashierApp.initNewSession();
+                    }
+
+
+                    CashierApp.getCurrentSession().addItem(productId, productQtdMap.get(productId));
                 }
-
-                for(long id : productQtdMap.keySet()){
-                    productId = id;
+                else {
+                    System.out.println("[ERROR] Produto inexistente");
                 }
-
-                CashierApp.getCurrentSession().addItem(productId, productQtdMap.get(productId));
             }
             return;
         }
