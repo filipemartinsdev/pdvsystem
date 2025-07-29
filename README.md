@@ -1,71 +1,76 @@
 # 🛒 Sistema de PDV em linha de comando
+> ⚙️ Em construção...
+>
+> Sinta-se avontade para contribuir!
 
-Essa é uma aplicação simples que simula a execução de um sistema PDV (Ponto De Venda) de um Super Mercado no terminal. O sistema conta com Frente de Caixa e ferramentas de gerenciamento para o usuário.
 
-> ⚙️ Em construção... 
+Essa é uma aplicação que simula um sistema PDV (Ponto De Venda) de um Super Mercado no terminal.
+O sistema é baseado em dois módulos principais:
 
-## 📌 Features
-- [x] 💵 Sistema de Caixa
-- [x] 📦 Controle de estoque 
-- [x] 💿 Persistência em Banco de Dados
+- 💵 PDV Cashier
+
+  Frente de caixa para vendas.
+
+- 💼 PDV Admin
+
+  Sistem de gerenciamento baseado em rotinas desaclopadas, cada uma com sua função específica.
+
+<hr>
+
+## Requisitos
+- Git 2.23+
+- Java SE 17+
+
+## Como executar
+- Clone o projeto
+    ```
+    git clone github.com/filipemartinsdev/pdvsystem
+    cd pdvsystem
+    ``` 
+- Copie o arquivo .env.example
+    - Linux / MacOS
+    ```
+    cp .env.example .env
+    ```
+  
+    - Windows
+    ```
+    copy .env.example .env
+    ```
+- Execute o programa
+  ```
+    java -jar pdvsystem.jar
+  ```
+
+### 👤 Usuários para teste
+
+| NOME        | SENHA     |
+|-------------|-----------|
+| admteste    | 000       |
+| caixateste  | 000       |
 
 ## 💵 Como usar: Frente de Caixa
 
 ### # Funções
-| entrada | função                  |
+| ENTRADA | FUNÇÃO                  |
 |---------|-------------------------|
 | f       | Finalizar compra / Sair |
 | c       | Cancelar item           |
+| m       | Consulta de preços      |
 
-### # Fluxo da aplicação
 
-> O usuário ( operador do caixa ) gerencia a aplicação por meio de códigos para produtos e funções, assim como em um PDV real.
+## 💼 Como usar: PdvAdmin
+O PdvAdmin é um módulo da aplicação voltado ao gerenciamento do sistema. Nesse sentido, o usuário possui acesso a diversas rotinas de acordo com suas permissões gravadas.
 
-<img src="img1.png" width="40%">
 
-### # Exemplo de uso
-```
->>>>>> CASHIER <<<<<<
->>> 445
-+-----------------------------------------------------------------------------------------+
-|       | codigo          | nome                 |        preco |      qtd |        total |
-+-----------------------------------------------------------------------------------------+
-| #1    | 445             | Melancia             | R$      9.98 |    1 uni | R$      9.98 |
-+-----------------------------------------------------------------------------------------+
-| Melancia             R$9.98           1 uni |
-+---------------------------------------------+
-| SUBTOTAL = R$9.98       |
-+-------------------------+
->> f
+### Rotinas
 
->> Tecle ENTER para voltar <<
-Qual a forma de pagamento?
-   [0] Dinheiro
-   [1] Débito
-   [2] Crédito
-   [3] Pix
-   [4] Crédito manual
-   [5] Boleto
-   [6] Vale troca
->> 0
->> Valor de entrada: 10.00
+| #ID        | NOME    | DETALHES |
+|-----------|---------|----------|
+| 100       | Estoque | Gerenciamento direto dos produtos em estoque |
+| 200       | Financeiro | Histórico de vendas |
+| 220       | Gerenciamento | Administração de usuários e configurações extras do PDV |
 
-AGUARDE...
-
-TROCO = R$0.02
-AGUARDE...
->> Sessão finalizada <<
-```
-
-## 💼 Como usar: Rotinas
-A área de gerenciamento do PDV é baseada em rotinas, aplicações desaclopadas com funções específicas ( assim como sistemas ERPs robustos ). O objetivo dessa abordagem é garantir que a aplicação possa crescer de forma gradual e segura, evitando que um problema pequeno quebre o funcionamento do programa. 
-
-> ⚙️ Feature em desenvolvimento...
-
-Rotinas:
--  [100] Controle de estoque
--  [200] Financeiro
--  [220] Gerenciamento
 
 
 
@@ -79,13 +84,7 @@ Rotinas:
 - [ ] Criar rotina: Dashboards 📉
 
 ### 🚀 Últimas atualizações
+- Refatoração geral nos algoritmos;
+- Upando projeto para a nuvem: online publicamente! ☁️
 
-- Novo algoritmo para capturar entradas de multiplicações de produtos no PDV Frente de caixa, com o seguinte padrão:
-```
-INPUT >> "MxP"
-M = Multiplicador ( peso ou quantidade )
-P = Código do produto
-```
-- Upgrade geral no PDV Frente de caixa: refatoração de código desnecessário;
-
-23/07/2025
+28/07/2025

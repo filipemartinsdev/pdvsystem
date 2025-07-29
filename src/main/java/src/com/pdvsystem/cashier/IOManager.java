@@ -148,10 +148,11 @@ public class IOManager {
         return matcher.find();
     }
 
-//    input:  "0.500x445"
-//    out:    {445, 0.500}
-//    out = Map<Long, Float>
-//             <code,   qtd>
+/*    input:  "0.500x445"
+      out:    {445, 0.500}
+      out = Map<Long, Float>
+               <code,   qtd>
+*/
     private static Map<Long, Float> getMultiplyFunctionMap(String input){
 //        INT multiply pattern
 //        ex:   10x445
