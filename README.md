@@ -46,8 +46,8 @@ O sistema é baseado em dois módulos principais:
 
 | NOME        | SENHA     |
 |-------------|-----------|
-| admteste    | 000       |
-| caixateste  | 000       |
+| testeadm    | 000       |
+| testecaixa  | 000       |
 
 ## Requisitos
 - Git 2.23+
