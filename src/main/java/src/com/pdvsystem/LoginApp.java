@@ -11,6 +11,8 @@ public class LoginApp {
         String userName = InputManager.readString(">> Usuário: ");
         String userPassword = InputManager.readString(">> Senha: ");
 
+        System.out.println("Aguarde...\n");
+
         UserRepository userRepository = new UserRepositoryImpl();
 
         if(userRepository.authenticateUser(userName, userPassword)){

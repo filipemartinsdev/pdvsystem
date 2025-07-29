@@ -111,7 +111,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean authenticateUser(int userId, String password) {
-        String sql = "SELECT password FROM users WHERE id = ?;";
+        String sql = "SELECT password FROM users WHERE code = ?;";
         boolean out = false;
 
         try {
@@ -141,7 +141,9 @@ public class UserRepositoryImpl implements UserRepository {
             conn.close();
             return out;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("[ERRO DE CONEXÃO] Tente novamente mais tarde");
+//            throw new RuntimeException(e);
+            return false;
         }
     }
 
@@ -175,7 +177,9 @@ public class UserRepositoryImpl implements UserRepository {
             conn.close();
             return out;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("[ERRO DE CONEXÃO] Tente novamente mais tarde");
+//            throw new RuntimeException(e);
+            return false;
         }
     }
 
