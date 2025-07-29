@@ -1,11 +1,28 @@
 # 🛒 Sistema de PDV em linha de comando
 > ⚙️ Em construção...
+<<<<<<< HEAD
 >
 > Sinta-se avontade para contribuir!
 
 
 Essa é uma aplicação que simula um sistema PDV (Ponto De Venda) de um Super Mercado no terminal.
 O sistema é baseado em dois módulos principais:
+=======
+> 
+> Sinta-se avontade para contribuir!
+
+Essa é uma aplicação que simula um sistema PDV (Ponto De Venda) de um Super Mercado no terminal. 
+O sistema é baseado em dois módulos principais:
+
+- 💵 PDV Cashier
+  
+  Frente de caixa para vendas.
+
+- 💼 PDV Admin
+  
+  Sistem de gerenciamento baseado em rotinas desaclopadas, cada uma com sua função específica.
+
+>>>>>>> 45ece56a44a03567af3b878a5ecde1f32d944076
 
 - 💵 PDV Cashier
 
@@ -43,6 +60,24 @@ O sistema é baseado em dois módulos principais:
   ```
 
 ### 👤 Usuários para teste
+
+| NOME        | SENHA     |
+|-------------|-----------|
+| admteste    | 000       |
+| caixateste  | 000       |
+
+## Requisitos
+- Git 2.23+
+- Java SE 17+
+
+## Como executar ( Funcionando em breve... )
+```
+git clone github.com/filipemartinsdev/pdvsystem
+cd pdvsystem
+java -jar pdvsystem.jar
+```
+
+### 👤 Usuários de teste:
 
 | NOME        | SENHA     |
 |-------------|-----------|
