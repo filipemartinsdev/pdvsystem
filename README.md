@@ -39,7 +39,7 @@ O sistema é baseado em dois módulos principais:
     ```
 - Execute o programa
   ```
-    java -jar target/pdvsystem.jar
+    java -jar pdvsystem.jar
   ```
 
 ### 👤 Usuários para teste
