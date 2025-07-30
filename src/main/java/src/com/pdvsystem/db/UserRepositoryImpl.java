@@ -141,9 +141,9 @@ public class UserRepositoryImpl implements UserRepository {
             conn.close();
             return out;
         } catch (SQLException e) {
-            System.out.println("[ERRO DE CONEXÃO] Tente novamente mais tarde");
-//            throw new RuntimeException(e);
-            return false;
+//            System.out.println("[ERRO DE CONEXÃO] Tente novamente mais tarde");
+            throw new RuntimeException(e);
+//            return false;
         }
     }
 
