@@ -17,6 +17,19 @@ O sistema é baseado em dois módulos principais:
 
 <hr>
 
+## Tecnologias utilizadas
+
+- JavaSE
+- JDBC Puro
+- SQL
+- PostgreSQL
+- SupaBase
+- Maven + Shade Plugin
+- Dotenv Lib
+- Git
+
+<hr>
+
 ## Requisitos
 - Git 2.23+
 - Java SE 17+
