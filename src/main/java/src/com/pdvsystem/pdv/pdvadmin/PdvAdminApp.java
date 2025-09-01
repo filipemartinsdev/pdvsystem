@@ -2,6 +2,7 @@ package src.com.pdvsystem.pdv.pdvadmin;
 
 import src.com.pdvsystem.io.InputManager;
 import src.com.pdvsystem.pdv.pdvadmin.routines.Routine;
+import src.com.pdvsystem.pdv.pdvadmin.routines.RoutineManager;
 
 public class PdvAdminApp {
     private static boolean wantToExit;
@@ -31,6 +32,13 @@ public class PdvAdminApp {
         if (input.isBlank()){
             PdvAdminApp.wantToExit = true;
             return;
+        }
+
+        if (!input.matches("\\D+")){
+            Routine routine = Routine.getRoutine(Integer.parseInt(input));
+            if (routine!=null){
+                RoutineManager.runRoutine(routine);
+            }
         }
     }
 }

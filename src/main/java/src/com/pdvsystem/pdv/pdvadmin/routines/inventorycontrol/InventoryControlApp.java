@@ -1,4 +1,10 @@
 package src.com.pdvsystem.pdv.pdvadmin.routines.inventorycontrol;
 
-public class InventoryControlApp {
+import src.com.pdvsystem.pdv.pdvadmin.routines.RoutineApp;
+
+public class InventoryControlApp implements RoutineApp {
+    @Override
+    public void run(){
+        System.out.println("Running InventoryControlApp");
+    }
 }

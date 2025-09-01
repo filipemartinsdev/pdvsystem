@@ -13,4 +13,14 @@ public enum Routine {
     public int getId(){
         return this.ID;
     }
+
+    public static Routine getRoutine(int id){
+        for (Routine r:Routine.values()){
+            if (r.getId() == id){
+                return r;
+            }
+        }
+
+        return null;
+    }
 }
