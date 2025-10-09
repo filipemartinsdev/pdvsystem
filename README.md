@@ -90,15 +90,13 @@ O PdvAdmin é um módulo da aplicação voltado ao gerenciamento do sistema. Nes
 ![uml-pdv.png](./uml-pdv.png)
 
 ## 📝 To do List
-- [x] Implementar pesagem de produtos no PDV Frente de Caixa 🧮
 - [x] Fazer diagrama de Classes do projeto 🗺
 - [ ] Refatorar banco de dados
 - [ ] Implementar registro de vendas
 - [ ] Fazer diagrama de Entidade e Relacionamento ( Banco de dados )
-- [ ] Criar rotina: Entrada de produtos 📦
-- [ ] Criar rotina: Cadastro/gerenciamento de usuários 👥
-- [ ] Criar rotina: Controle de estoque & precificação de produtos 🔍
-- [ ] Criar rotina: Dashboards 📉
+- [ ] PdvAdmin | Criar rotina: Cadastro/gerenciamento de usuários 👥
+- [ ] PdvAdmin | Criar rotina: Controle de estoque & precificação de produtos 🔍
+- [ ] PdvAdmin | Criar rotina: Dashboards 📉
 
 ### 🚀 Últimas atualizações
 - Diagrama de Classes criado!
