@@ -86,6 +86,8 @@ O PdvAdmin é um módulo da aplicação voltado ao gerenciamento do sistema. Nes
 | 220       | Gerenciamento | Administração de usuários e configurações extras do PDV |
 
 
+## Diagrama de Classes
+![uml-pdv.png](./uml-pdv.png)
 
 ## 📝 To do List
 - [x] Implementar Login de usuário 🔐

@@ -10,6 +10,7 @@ public interface UserRepository {
 
 //    READ
 
+//    FIXME change param userId to LONG ( ALL METHODS)
     boolean userExists(int userId);
 
     User getUserById(int userId);

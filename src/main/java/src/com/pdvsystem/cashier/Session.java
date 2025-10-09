@@ -125,7 +125,8 @@ public class Session {
 
             productRepository.sellAll(productList);
 
-            System.out.println(">> Sessão finalizada <<\n");
+//            System.out.println(">> Sessão finalizada <<\n");
+            System.out.println(">> Compra finalizada <<\n");
             return true;
         }
         return false;

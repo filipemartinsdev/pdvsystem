@@ -96,13 +96,30 @@ public class Payment {
             input = InputManager.readString(">> Valor de entrada: ");
 
 //            CHECAGEM DE TIPO
-            if(!InputHandler.strIsFloat(input)) {
-                System.out.println("[ERROR] Entrada inválida.");
+            if(!InputHandler.strIsLong(input) && !InputHandler.strIsFloat(input)){
+                System.out.println("[Error] Entrada inválida");
                 continue;
             }
+
+//            else if(!InputHandler.strIsFloat(input)){
+//                System.out.println("[Error] Entrada inválida NF");
+//                continue;
+//            }
+
             else {
                 enterValue += Float.parseFloat(input);
             }
+
+//            if(!InputHandler.strIsFloat(input)) {
+//                System.out.println("[ERROR] Entrada inválida.");
+//                enterValue += Float.parseFloat(input);
+//                continue;
+//            }
+//            else {
+//                continue;
+//                enterValue += Float.parseFloat(input);
+//                enterValue += input;
+//            }
 
             if (enterValue<this.SALE_VALUE) {
                 System.out.println("Entrada atual = "+enterValue);
